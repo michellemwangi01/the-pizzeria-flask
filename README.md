@@ -1,4 +1,31 @@
 # THE PIZZERIA
+### Flask Code Challenge - Pizza Restaurants
+Creating FLASK API for a Pizza Restaurant domain.
+
+Running the Flask server and using Postman to make requests
+Models
+You need to create the following relationships:
+- A Restaurant has many Pizzas through RestaurantPizza
+- A Pizza has many Restaurants through RestaurantPizza
+- A RestaurantPizza belongs to a Restaurant and belongs to a Pizza
+
+![img.png](img.png)
+
+### Validations
+Add validations to the RestaurantPizza model:
+- Must have a price between 1 and 30
+
+Add validations to Restaurant Model:
+- must have a name less than 50 words in length
+- must have a unique name
+
+### Routes
+- Set up the following routes. Make sure to return JSON data in the format specified along with the appropriate HTTP verb.
+- GET /restaurantsLinks to an external site.
+- Return JSON data in the format below:
+
+
+# SET UP & CONFIGURATION
 ## VIRTUAL ENVIRONMENT
 1. Create virtual environment
    - `mkdir flask-python-the-pizzeria`
