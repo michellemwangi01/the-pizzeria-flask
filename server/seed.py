@@ -41,7 +41,12 @@ pizza_images=[
     "https://shorturl.at/bgGOV",
     "https://shorturl.at/ixJR9",
     "https://shorturl.at/elopC",
-    "https://shorturl.at/uvHW1"
+    "https://shorturl.at/uvHW1",
+    "https://shorturl.at/chmGZ",
+    "https://shorturl.at/giBQY",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5GKIYIw7QBdo9mP5BWeTZrlnWefRAV1Ejtg&usqp=CAU",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsTYu0jY4pOwYls-H-L1ThUMr-OY-u7iIIZHDxBN_yVPne5AghkmrWx4d_xsunuKP33es&usqp=CAU",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrbaX04rb7sq-f3JjdNXT7ErQP3sEghUVkZ8KrFxMtgMjcWdqwcTtUJ7K7Ry5mAkjgZpA&usqp=CAU"
 ]
 
 

@@ -2,7 +2,7 @@
 from flask import Flask
 import secrets
 from flask_migrate import Migrate
-from flask import make_response, request
+from flask import make_response, request, jsonify
 from flask_restful import Resource, Api
 from models import Restaurant, Pizza, Restaurant_pizzas, db
 
@@ -42,7 +42,10 @@ class Restaurants(Resource):
                 # "pizzas": restaurant.pizzas
             }
             restaurants_dicts.append(dict_restaurant)
-        return make_response(restaurants_dicts, 200)
+        response_body = {
+            "restaurants": restaurants_dicts
+        }
+        return make_response(jsonify(response_body), 200)
 
 
 api.add_resource(Restaurants, '/restaurants')
@@ -100,10 +103,14 @@ class Pizzas(Resource):
                 "id": pizza.id,
                 "name": pizza.name,
                 "ingredients": pizza.ingredients,
+                "image":pizza.image
             }
             # dict_pizza = pizza.to_dict()
             pizzas_dicts.append(dict_pizza)
-        return make_response(pizzas_dicts, 200)
+            response_body = {
+                "pizzas":pizzas_dicts
+            }
+        return make_response(jsonify(response_body), 200)
 
 
 api.add_resource(Pizzas, '/pizzas')
