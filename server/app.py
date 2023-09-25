@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from flask import Flask
+from flask_cors import CORS
 import secrets
 from flask_migrate import Migrate
 from flask import make_response, request, jsonify
@@ -15,7 +16,7 @@ app.json.compact = False
 
 
 api = Api(app)
-
+CORS(app)
 migrate = Migrate(app, db)
 db.init_app(app)
 

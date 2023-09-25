@@ -1,6 +1,10 @@
 import React from "react";
 
-const PizzaCard = ({ pizza }) => {
+const PizzaCard = ({ pizza, filteredPizzas }) => {
+  // const currentPizza = filteredPizzas.filter(
+  //   (thisPizza) => (thisPizza.id = pizza.id)
+  // );
+
   return (
     <div
       class="card"
@@ -47,7 +51,7 @@ const PizzaCard = ({ pizza }) => {
             fontFamily: "cursive",
           }}
         >
-          KSH 0.00
+          KSH {pizza.price}
         </ul>
         <ul
           class=""
