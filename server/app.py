@@ -8,9 +8,9 @@ from models import Restaurant, Pizza, Restaurant_pizzas, db
 
 app = Flask(__name__)
 secret_key = secrets.token_hex(16)
-app.config['SECRET_KEY'] = secret_key
-app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///app.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config["SECRET_KEY"] = secret_key
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.json.compact = False
 
 
@@ -22,13 +22,11 @@ db.init_app(app)
 
 class Home(Resource):
     def get(self):
-        response_message = {
-            "message": "WELCOME TO THE PIZZERIA."
-        }
+        response_message = {"message": "WELCOME TO THE PIZZERIA."}
         return make_response(response_message, 200)
 
 
-api.add_resource(Home, '/')
+api.add_resource(Home, "/")
 
 
 class Restaurants(Resource):
@@ -42,13 +40,11 @@ class Restaurants(Resource):
                 # "pizzas": restaurant.pizzas
             }
             restaurants_dicts.append(dict_restaurant)
-        response_body = {
-            "restaurants": restaurants_dicts
-        }
+        response_body = {"restaurants": restaurants_dicts}
         return make_response(jsonify(response_body), 200)
 
 
-api.add_resource(Restaurants, '/restaurants')
+api.add_resource(Restaurants, "/restaurants")
 
 
 class RestaurantByID(Resource):
@@ -58,9 +54,7 @@ class RestaurantByID(Resource):
             restaurant_dict = restaurant.to_dict()
             response = make_response(restaurant_dict, 200)
         else:
-            response_body = {
-                "error": "Restaurant not found"
-            }
+            response_body = {"error": "Restaurant not found"}
             response = make_response(response_body, 404)
         return response
 
@@ -71,13 +65,11 @@ class RestaurantByID(Resource):
             db.session.commit()
             response_body = {
                 "delete_successful": True,
-                "message": "Deleted Successfully"
+                "message": "Deleted Successfully",
             }
             response = make_response(response_body, 200)
         else:
-            response_body = {
-                "error": "Restaurant not found"
-            }
+            response_body = {"error": "Restaurant not found"}
             response = make_response(response_body, 404)
         return response
 
@@ -91,11 +83,10 @@ class RestaurantByID(Resource):
         return make_response(restaurant_dict, 200)
 
 
-api.add_resource(RestaurantByID, '/restaurantbyid/<int:id>')
+api.add_resource(RestaurantByID, "/restaurantbyid/<int:id>")
 
 
 class Pizzas(Resource):
-
     def get(self):
         pizzas_dicts = []
         for pizza in Pizza.query.all():
@@ -103,17 +94,15 @@ class Pizzas(Resource):
                 "id": pizza.id,
                 "name": pizza.name,
                 "ingredients": pizza.ingredients,
-                "image":pizza.image
+                "image": pizza.image,
             }
             # dict_pizza = pizza.to_dict()
             pizzas_dicts.append(dict_pizza)
-            response_body = {
-                "pizzas":pizzas_dicts
-            }
+            response_body = {"pizzas": pizzas_dicts}
         return make_response(jsonify(response_body), 200)
 
 
-api.add_resource(Pizzas, '/pizzas')
+api.add_resource(Pizzas, "/pizzas")
 
 
 class PizzaByID(Resource):
@@ -123,23 +112,29 @@ class PizzaByID(Resource):
             pizza_dict = pizza.to_dict()
             response = make_response(pizza_dict, 200)
         else:
-            response_body = {
-                "error": "Pizza not found"
-            }
+            response_body = {"error": "Pizza not found"}
             response = make_response(response_body, 404)
         return response
 
 
-api.add_resource(PizzaByID, '/pizzabyid/<int:id>')
+api.add_resource(PizzaByID, "/pizzabyid/<int:id>")
 
 
 class RestaurantPizza(Resource):
+    def get(self):
+        restaurant_pizzas = [
+            restaurant_pizza.to_dict()
+            for restaurant_pizza in Restaurant_pizzas.query.all()
+        ]
+        response_body = {"restaurant_pizzas": restaurant_pizzas}
+
+        return make_response(response_body, 200)
 
     def post(self):
         new_restaurant_pizza = Restaurant_pizzas(
-            price=int(request.form.get('price')),
-            pizza_id=request.form.get('pizza_id'),
-            restaurant_id=request.form.get('restaurant_id'),
+            price=int(request.form.get("price")),
+            pizza_id=request.form.get("pizza_id"),
+            restaurant_id=request.form.get("restaurant_id"),
         )
         try:
             db.session.add(new_restaurant_pizza)
@@ -147,8 +142,8 @@ class RestaurantPizza(Resource):
             restaurant_pizza_dict = new_restaurant_pizza.to_dict()
             response_body = {
                 "message": "Restaurant_pizza created for...",
-                "pizza": restaurant_pizza_dict['pizza'],
-                "restaurant": restaurant_pizza_dict['restaurant']
+                "pizza": restaurant_pizza_dict["pizza"],
+                "restaurant": restaurant_pizza_dict["restaurant"],
             }
             response = make_response(response_body, 200)
         except Exception as e:
@@ -160,8 +155,8 @@ class RestaurantPizza(Resource):
             return response
 
 
-api.add_resource(RestaurantPizza, '/restaurant_pizzas')
+api.add_resource(RestaurantPizza, "/restaurant_pizzas")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(port=5555, debug=True)
