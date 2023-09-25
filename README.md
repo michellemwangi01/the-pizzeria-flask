@@ -14,6 +14,8 @@ Models. You need to create the following relationships:
 
 ![img.png](images/img.png)
 
+Database API available on: https://flask-pizzeria-api.onrender.com
+
 ### Validations
 
 Add validations to the RestaurantPizza model:
